@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin - Phish Sim Results</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Admin dashboard</h1>
+    <h3>Counts by event / page</h3>
+    <table>
+      <thead><tr><th>Event</th><th>Page</th><th>Count</th></tr></thead>
+      <tbody>
+        {% for r in rows %}
+          <tr><td>{{ r['event_type'] }}</td><td>{{ r['page'] }}</td><td>{{ r['cnt'] }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Latest events</h3>
+    <table>
+      <thead><tr><th>ts</th><th>event</th><th>page</th><th>details</th><th>ip</th></tr></thead>
+      <tbody>
+        {% for e in latest %}
+          <tr>
+            <td>{{ e['ts'] }}</td>
+            <td>{{ e['event_type'] }}</td>
+            <td>{{ e['page'] }}</td>
+            <td>{{ e['details'] }}</td>
+            <td>{{ e['ip'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

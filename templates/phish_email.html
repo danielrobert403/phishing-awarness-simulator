@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Important: Action Required</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Security Notice — Action Required</h1>
+    <p>
+      Hi — we detected unusual activity. Please verify your account to avoid suspension.
+    </p>
+    <!-- Simulated call-to-action -->
+    <a id="cta" href="/fake-login">Verify Account</a>
+
+    <hr>
+    <small>This is a simulated training exercise for phishing awareness (demo).</small>
+  </div>
+
+  <script>
+    // send a page view track
+    fetch('/track', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({event: 'page_view', page: 'simulated_email'})
+    });
+
+    document.getElementById('cta').addEventListener('click', function(){
+      fetch('/track', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({event: 'clicked_cta', page:'simulated_email', details:'verify_link'})
+      });
+      // default link behaviour will direct the user to /fake-login
+    });
+  </script>
+</body>
+</html>

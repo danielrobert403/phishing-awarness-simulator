@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Account Verification</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="card">
+    <h2>Verify your account</h2>
+    <form id="fakeForm" method="POST" action="/submit-fake">
+      <!-- NOTE: we intentionally do NOT collect real credentials; this is a simulated flow -->
+      <label>Email (for demo)</label>
+      <input name="email" placeholder="you@org.com" />
+      <label>Enter your Employee ID (demo)</label>
+      <input name="empid" placeholder="12345" />
+      <button type="submit">Verify</button>
+    </form>
+
+    <p class="hint">This is a simulation. After you submit you will see tips on red flags.</p>
+  </div>
+
+  <script>
+    fetch('/track', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({event:'page_view', page:'fake_login'})
+    });
+
+    document.getElementById('fakeForm').addEventListener('submit', function(){
+      fetch('/track', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({event:'submitted_fake_form', page:'fake_login'})
+      });
+      // form then posts to /submit-fake which redirects to education
+    });
+  </script>
+</body>
+</html>
